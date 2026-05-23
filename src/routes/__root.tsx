@@ -9,6 +9,7 @@ import {
 } from "@tanstack/react-router";
 
 import appCss from "../styles.css?url";
+import { Toaster } from "@/components/ui/sonner";
 
 function NotFoundComponent() {
   return (
@@ -72,21 +73,23 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Connects to Shopify stores to manage product updates and publish changes." },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Connects to Shopify stores to manage product updates and publish changes." },
+      { title: "DermaTek — Aparatología Estética Premium" },
+      { name: "description", content: "Equipos profesionales de aparatología estética: láser, HIFU, hidrafacial, EMSzero y más. Tecnología médico-estética de alta gama." },
+      { name: "author", content: "DermaTek" },
+      { property: "og:title", content: "DermaTek — Aparatología Estética Premium" },
+      { property: "og:description", content: "Equipos profesionales de aparatología estética: láser, HIFU, hidrafacial, EMSzero y más." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
-      { name: "twitter:title", content: "Lovable App" },
-      { name: "twitter:description", content: "Connects to Shopify stores to manage product updates and publish changes." },
+      { name: "twitter:title", content: "DermaTek — Aparatología Estética Premium" },
+      { name: "twitter:description", content: "Equipos profesionales de aparatología estética de alta gama." },
     ],
     links: [
+      { rel: "stylesheet", href: appCss },
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: appCss,
+        href: "https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Lato:wght@300;400;700;900&display=swap",
       },
     ],
   }),
@@ -116,6 +119,7 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <Outlet />
+      <Toaster position="top-center" />
     </QueryClientProvider>
   );
 }
