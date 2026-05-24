@@ -10,11 +10,15 @@ import { ProductCard } from "@/components/ProductCard";
 import { useCartSync } from "@/hooks/useCartSync";
 import { PRODUCTS_QUERY, storefrontApiRequest, type ShopifyProduct } from "@/lib/shopify";
 
+type SortKey = "newest" | "price-asc" | "price-desc" | "title";
+
 const searchSchema = z.object({
   q: fallback(z.string().optional(), undefined),
   cat: fallback(z.string().optional(), undefined),
   sort: fallback(z.enum(["newest", "price-asc", "price-desc", "title"]), "newest").default("newest"),
 });
+
+type CatalogoSearch = { q?: string; cat?: string; sort: SortKey };
 
 export const Route = createFileRoute("/catalogo")({
   validateSearch: zodValidator(searchSchema),
@@ -75,7 +79,7 @@ function CatalogoPage() {
   }, [all, cat, q, sort]);
 
   const setCat = (next: string | undefined) =>
-    navigate({ search: (prev) => ({ ...prev, cat: next }) });
+    navigate({ search: (prev: CatalogoSearch) => ({ ...prev, cat: next }) });
 
   const activeFilters = [q && { key: "q", label: `“${q}”` }, cat && { key: "cat", label: cat }].filter(Boolean) as { key: string; label: string }[];
 
@@ -149,7 +153,7 @@ function CatalogoPage() {
                 activeFilters.map((f) => (
                   <button
                     key={f.key}
-                    onClick={() => navigate({ search: (prev) => ({ ...prev, [f.key]: undefined }) as never })}
+                    onClick={() => navigate({ search: (prev: CatalogoSearch) => ({ ...prev, [f.key]: undefined }) })}
                     className="inline-flex items-center gap-2 px-3 py-1.5 bg-muted text-xs hover:bg-accent hover:text-accent-foreground transition-colors"
                   >
                     {f.label}
@@ -162,7 +166,7 @@ function CatalogoPage() {
               <span className="uppercase tracking-[0.2em] text-muted-foreground">Ordenar</span>
               <select
                 value={sort}
-                onChange={(e) => navigate({ search: (prev) => ({ ...prev, sort: e.target.value as typeof sort }) })}
+                onChange={(e) => navigate({ search: (prev: CatalogoSearch) => ({ ...prev, sort: e.target.value as SortKey }) })}
                 className="bg-transparent border-b border-border py-1 pr-6 focus:outline-none focus:border-accent text-sm"
               >
                 <option value="newest">Más recientes</option>
