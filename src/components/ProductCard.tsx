@@ -1,11 +1,15 @@
 import { Link } from "@tanstack/react-router";
-import { Loader2, Plus } from "lucide-react";
+import { Loader2, Plus, GitCompareArrows } from "lucide-react";
 import { type ShopifyProduct, formatPrice } from "@/lib/shopify";
 import { useCartStore } from "@/stores/cartStore";
+import { useCompareStore, MAX_COMPARE } from "@/stores/compareStore";
+import { toast } from "sonner";
 
 export function ProductCard({ product }: { product: ShopifyProduct }) {
   const addItem = useCartStore((s) => s.addItem);
   const isLoading = useCartStore((s) => s.isLoading);
+  const toggleCompare = useCompareStore((s) => s.toggle);
+  const inCompare = useCompareStore((s) => s.items.some((p) => p.node.id === product.node.id));
   const variant = product.node.variants.edges[0]?.node;
   const image = product.node.images.edges[0]?.node;
   const price = product.node.priceRange.minVariantPrice;
@@ -21,6 +25,13 @@ export function ProductCard({ product }: { product: ShopifyProduct }) {
       quantity: 1,
       selectedOptions: variant.selectedOptions || [],
     });
+  };
+
+  const handleCompare = (e: React.MouseEvent) => {
+    e.preventDefault();
+    const r = toggleCompare(product);
+    if (r.full) toast.error(`Máximo ${MAX_COMPARE} equipos en el comparador`);
+    else if (r.added) toast.success("Añadido al comparador");
   };
 
   const hasPrice = parseFloat(price.amount) > 0;
@@ -44,6 +55,18 @@ export function ProductCard({ product }: { product: ShopifyProduct }) {
             Sin imagen
           </div>
         )}
+        <button
+          onClick={handleCompare}
+          className={`absolute top-3 left-3 h-9 px-3 text-[10px] uppercase tracking-[0.15em] backdrop-blur transition-all flex items-center gap-1.5 ${
+            inCompare
+              ? "bg-accent text-accent-foreground"
+              : "bg-background/90 text-foreground opacity-0 group-hover:opacity-100 hover:bg-accent hover:text-accent-foreground"
+          }`}
+          aria-label="Comparar"
+        >
+          <GitCompareArrows className="w-3 h-3" />
+          {inCompare ? "Comparando" : "Comparar"}
+        </button>
         <button
           onClick={handleAdd}
           disabled={isLoading || !variant?.availableForSale}
