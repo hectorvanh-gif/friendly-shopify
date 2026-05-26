@@ -9,6 +9,7 @@ import { useCartSync } from "@/hooks/useCartSync";
 import { PRODUCTS_QUERY, storefrontApiRequest, type ShopifyProduct } from "@/lib/shopify";
 import { TREATMENTS, productsForTreatment } from "@/lib/treatments";
 import heroImage from "@/assets/hero.jpg";
+import heroVideo from "@/assets/hero-video.mp4.asset.json";
 import imgRejuvenecimiento from "@/assets/treatment-rejuvenecimiento.jpg";
 import imgReduccion from "@/assets/treatment-reduccion.jpg";
 import imgDepilacion from "@/assets/treatment-depilacion.jpg";
@@ -85,9 +86,14 @@ function Index() {
           </div>
           <div className="lg:col-span-6 relative">
             <div className="relative aspect-[4/5] overflow-hidden">
-              <img
-                src={heroImage}
-                alt="Equipo de aparatología estética DermaTek"
+              <video
+                src={heroVideo.url}
+                poster={heroImage}
+                autoPlay
+                loop
+                muted
+                playsInline
+                aria-label="Equipos de aparatología estética DermaTek"
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 via-transparent to-transparent" />
