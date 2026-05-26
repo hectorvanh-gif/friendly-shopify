@@ -161,53 +161,6 @@ function Index() {
         </div>
       </section>
 
-      {/* Cómo funciona */}
-      <section className="bg-card border-y border-border/60">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12 py-16">
-          <p className="text-[10px] uppercase tracking-[0.3em] text-accent mb-3">Cómo funciona</p>
-          <h2 className="font-display text-3xl md:text-4xl tracking-tight mb-12">
-            Marketplace pensado para clínicas
-          </h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              { n: "01", icon: Sparkles, title: "Explora por tratamiento", desc: "Encuentra el equipo según el resultado clínico que quieres vender." },
-              { n: "02", icon: GitCompareArrows, title: "Compara hasta 3 equipos", desc: "Specs lado a lado: precio, opciones, marca y disponibilidad." },
-              { n: "03", icon: MessageCircle, title: "Cotiza por WhatsApp", desc: "Envía tu selección y recibe propuesta formal con condiciones." },
-            ].map((s) => (
-              <div key={s.n} className="space-y-4">
-                <div className="flex items-center gap-4">
-                  <span className="font-display text-3xl text-accent">{s.n}</span>
-                  <s.icon className="w-5 h-5 text-foreground/40" strokeWidth={1.5} />
-                </div>
-                <h3 className="font-display text-xl">{s.title}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">{s.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Trust strip */}
-      <section id="tecnologia" className="border-b border-border/60 bg-background">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12 py-12 grid md:grid-cols-3 gap-10">
-          {[
-            { icon: ShieldCheck, title: "Uso médico-estético", desc: "Equipos certificados de grado profesional." },
-            { icon: Award, title: "Marcas reconocidas", desc: "Tecnología validada por clínicas líderes." },
-            { icon: Sparkles, title: "Asesoría especializada", desc: "Te acompañamos en la selección ideal." },
-          ].map((f) => (
-            <div key={f.title} className="flex gap-4 items-start">
-              <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0">
-                <f.icon className="w-4 h-4 text-accent" strokeWidth={1.5} />
-              </div>
-              <div>
-                <h3 className="font-display text-lg leading-tight mb-1">{f.title}</h3>
-                <p className="text-sm text-muted-foreground">{f.desc}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
       {/* Destacados */}
       <section id="catalogo" className="max-w-7xl mx-auto px-6 lg:px-12 py-24 lg:py-32">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
