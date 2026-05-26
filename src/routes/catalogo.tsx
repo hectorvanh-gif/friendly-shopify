@@ -13,8 +13,8 @@ import { PRODUCTS_QUERY, storefrontApiRequest, type ShopifyProduct } from "@/lib
 type SortKey = "newest" | "price-asc" | "price-desc" | "title";
 
 const searchSchema = z.object({
-  q: fallback(z.string().optional(), undefined),
-  cat: fallback(z.string().optional(), undefined),
+  q: z.string().optional(),
+  cat: z.string().optional(),
   sort: fallback(z.enum(["newest", "price-asc", "price-desc", "title"]), "newest").default("newest"),
 });
 
