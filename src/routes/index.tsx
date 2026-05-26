@@ -9,6 +9,21 @@ import { useCartSync } from "@/hooks/useCartSync";
 import { PRODUCTS_QUERY, storefrontApiRequest, type ShopifyProduct } from "@/lib/shopify";
 import { TREATMENTS, productsForTreatment } from "@/lib/treatments";
 import heroImage from "@/assets/hero.jpg";
+import imgRejuvenecimiento from "@/assets/treatment-rejuvenecimiento.jpg";
+import imgReduccion from "@/assets/treatment-reduccion.jpg";
+import imgDepilacion from "@/assets/treatment-depilacion.jpg";
+import imgFlacidez from "@/assets/treatment-flacidez.jpg";
+import imgTonificacion from "@/assets/treatment-tonificacion.jpg";
+import imgManchas from "@/assets/treatment-manchas.jpg";
+
+const TREATMENT_IMAGES: Record<string, string> = {
+  "rejuvenecimiento-facial": imgRejuvenecimiento,
+  "reduccion-de-grasa": imgReduccion,
+  depilacion: imgDepilacion,
+  "flacidez-y-lifting": imgFlacidez,
+  "tonificacion-muscular": imgTonificacion,
+  "manchas-y-acne": imgManchas,
+};
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -28,8 +43,7 @@ function Index() {
   const products = data ?? [];
   const featured = products.slice(0, 8);
 
-  const treatmentImage = (slug: string) =>
-    productsForTreatment(products, slug)[0]?.node.images.edges[0]?.node.url;
+  const treatmentImage = (slug: string) => TREATMENT_IMAGES[slug];
   const treatmentCount = (slug: string) => productsForTreatment(products, slug).length;
 
   return (
