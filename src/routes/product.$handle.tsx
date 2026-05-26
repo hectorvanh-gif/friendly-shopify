@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useState, useMemo } from "react";
-import { ArrowLeft, Loader2, Plus, Check } from "lucide-react";
+import { ArrowLeft, Loader2, Plus, Check, TrendingUp } from "lucide-react";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { QuoteButton } from "@/components/QuoteButton";
@@ -13,10 +13,7 @@ import {
   type ShopifyProduct,
 } from "@/lib/shopify";
 import { useCartStore } from "@/stores/cartStore";
-import { useCompareStore, MAX_COMPARE } from "@/stores/compareStore";
 import { treatmentsForProduct } from "@/lib/treatments";
-import { GitCompareArrows } from "lucide-react";
-import { toast } from "sonner";
 
 export const Route = createFileRoute("/product/$handle")({
   component: ProductPage,
@@ -44,10 +41,6 @@ function ProductPage() {
     () => (product ? ({ node: product } as ShopifyProduct) : null),
     [product],
   );
-  const toggleCompare = useCompareStore((s) => s.toggle);
-  const inCompare = useCompareStore((s) =>
-    productAsNode ? s.items.some((p) => p.node.id === productAsNode.node.id) : false,
-  );
   const treatments = productAsNode ? treatmentsForProduct(productAsNode) : [];
 
   const handleAdd = async () => {
@@ -60,13 +53,6 @@ function ProductPage() {
       quantity: 1,
       selectedOptions: variant.selectedOptions || [],
     });
-  };
-
-  const handleCompare = () => {
-    if (!productAsNode) return;
-    const r = toggleCompare(productAsNode);
-    if (r.full) toast.error(`Máximo ${MAX_COMPARE} equipos en el comparador`);
-    else if (r.added) toast.success("Añadido al comparador");
   };
 
   return (
@@ -167,17 +153,14 @@ function ProductPage() {
                 {productAsNode && (
                   <QuoteButton products={[productAsNode]} variant="primary" size="md" label="Cotizar" />
                 )}
-                <button
-                  onClick={handleCompare}
-                  className={`h-11 inline-flex items-center justify-center gap-2 text-[11px] uppercase tracking-[0.2em] transition-colors ${
-                    inCompare
-                      ? "bg-accent text-accent-foreground"
-                      : "border border-foreground/20 hover:border-accent hover:text-accent"
-                  }`}
+                <Link
+                  to="/roi"
+                  search={{ handle: product.handle }}
+                  className="h-11 inline-flex items-center justify-center gap-2 text-[11px] uppercase tracking-[0.2em] transition-colors border border-foreground/20 hover:border-accent hover:text-accent"
                 >
-                  <GitCompareArrows className="w-3.5 h-3.5" />
-                  {inCompare ? "Quitar" : "Comparar"}
-                </button>
+                  <TrendingUp className="w-3.5 h-3.5" />
+                  Calcular ROI
+                </Link>
               </div>
 
               {treatments.length > 0 && (
