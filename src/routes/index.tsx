@@ -9,6 +9,7 @@ import { useCartSync } from "@/hooks/useCartSync";
 import { PRODUCTS_QUERY, storefrontApiRequest, type ShopifyProduct } from "@/lib/shopify";
 import { TREATMENTS, productsForTreatment } from "@/lib/treatments";
 import heroImage from "@/assets/hero.jpg";
+import heroVideo from "@/assets/hero-video.mp4.asset.json";
 import imgRejuvenecimiento from "@/assets/treatment-rejuvenecimiento.jpg";
 import imgReduccion from "@/assets/treatment-reduccion.jpg";
 import imgDepilacion from "@/assets/treatment-depilacion.jpg";
@@ -86,7 +87,7 @@ function Index() {
           <div className="lg:col-span-6 relative">
             <div className="relative aspect-[4/5] overflow-hidden">
               <video
-                src="/videos/hero.mp4"
+                src={heroVideo.url}
                 poster={heroImage}
                 autoPlay
                 loop
