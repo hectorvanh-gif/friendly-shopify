@@ -9,11 +9,17 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as RoiRouteImport } from './routes/roi'
 import { Route as CatalogoRouteImport } from './routes/catalogo'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as TratamientoSlugRouteImport } from './routes/tratamiento.$slug'
 import { Route as ProductHandleRouteImport } from './routes/product.$handle'
 
+const RoiRoute = RoiRouteImport.update({
+  id: '/roi',
+  path: '/roi',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CatalogoRoute = CatalogoRouteImport.update({
   id: '/catalogo',
   path: '/catalogo',
@@ -38,12 +44,14 @@ const ProductHandleRoute = ProductHandleRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/catalogo': typeof CatalogoRoute
+  '/roi': typeof RoiRoute
   '/product/$handle': typeof ProductHandleRoute
   '/tratamiento/$slug': typeof TratamientoSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/catalogo': typeof CatalogoRoute
+  '/roi': typeof RoiRoute
   '/product/$handle': typeof ProductHandleRoute
   '/tratamiento/$slug': typeof TratamientoSlugRoute
 }
@@ -51,26 +59,46 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/catalogo': typeof CatalogoRoute
+  '/roi': typeof RoiRoute
   '/product/$handle': typeof ProductHandleRoute
   '/tratamiento/$slug': typeof TratamientoSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/catalogo' | '/product/$handle' | '/tratamiento/$slug'
+  fullPaths:
+    | '/'
+    | '/catalogo'
+    | '/roi'
+    | '/product/$handle'
+    | '/tratamiento/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/catalogo' | '/product/$handle' | '/tratamiento/$slug'
-  id: '__root__' | '/' | '/catalogo' | '/product/$handle' | '/tratamiento/$slug'
+  to: '/' | '/catalogo' | '/roi' | '/product/$handle' | '/tratamiento/$slug'
+  id:
+    | '__root__'
+    | '/'
+    | '/catalogo'
+    | '/roi'
+    | '/product/$handle'
+    | '/tratamiento/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CatalogoRoute: typeof CatalogoRoute
+  RoiRoute: typeof RoiRoute
   ProductHandleRoute: typeof ProductHandleRoute
   TratamientoSlugRoute: typeof TratamientoSlugRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/roi': {
+      id: '/roi'
+      path: '/roi'
+      fullPath: '/roi'
+      preLoaderRoute: typeof RoiRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/catalogo': {
       id: '/catalogo'
       path: '/catalogo'
@@ -105,9 +133,20 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CatalogoRoute: CatalogoRoute,
+  RoiRoute: RoiRoute,
   ProductHandleRoute: ProductHandleRoute,
   TratamientoSlugRoute: TratamientoSlugRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
