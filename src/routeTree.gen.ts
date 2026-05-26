@@ -9,15 +9,15 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as CompararRouteImport } from './routes/comparar'
+import { Route as RoiRouteImport } from './routes/roi'
 import { Route as CatalogoRouteImport } from './routes/catalogo'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as TratamientoSlugRouteImport } from './routes/tratamiento.$slug'
 import { Route as ProductHandleRouteImport } from './routes/product.$handle'
 
-const CompararRoute = CompararRouteImport.update({
-  id: '/comparar',
-  path: '/comparar',
+const RoiRoute = RoiRouteImport.update({
+  id: '/roi',
+  path: '/roi',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CatalogoRoute = CatalogoRouteImport.update({
@@ -44,14 +44,14 @@ const ProductHandleRoute = ProductHandleRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/catalogo': typeof CatalogoRoute
-  '/comparar': typeof CompararRoute
+  '/roi': typeof RoiRoute
   '/product/$handle': typeof ProductHandleRoute
   '/tratamiento/$slug': typeof TratamientoSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/catalogo': typeof CatalogoRoute
-  '/comparar': typeof CompararRoute
+  '/roi': typeof RoiRoute
   '/product/$handle': typeof ProductHandleRoute
   '/tratamiento/$slug': typeof TratamientoSlugRoute
 }
@@ -59,7 +59,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/catalogo': typeof CatalogoRoute
-  '/comparar': typeof CompararRoute
+  '/roi': typeof RoiRoute
   '/product/$handle': typeof ProductHandleRoute
   '/tratamiento/$slug': typeof TratamientoSlugRoute
 }
@@ -68,21 +68,16 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/catalogo'
-    | '/comparar'
+    | '/roi'
     | '/product/$handle'
     | '/tratamiento/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to:
-    | '/'
-    | '/catalogo'
-    | '/comparar'
-    | '/product/$handle'
-    | '/tratamiento/$slug'
+  to: '/' | '/catalogo' | '/roi' | '/product/$handle' | '/tratamiento/$slug'
   id:
     | '__root__'
     | '/'
     | '/catalogo'
-    | '/comparar'
+    | '/roi'
     | '/product/$handle'
     | '/tratamiento/$slug'
   fileRoutesById: FileRoutesById
@@ -90,18 +85,18 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CatalogoRoute: typeof CatalogoRoute
-  CompararRoute: typeof CompararRoute
+  RoiRoute: typeof RoiRoute
   ProductHandleRoute: typeof ProductHandleRoute
   TratamientoSlugRoute: typeof TratamientoSlugRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/comparar': {
-      id: '/comparar'
-      path: '/comparar'
-      fullPath: '/comparar'
-      preLoaderRoute: typeof CompararRouteImport
+    '/roi': {
+      id: '/roi'
+      path: '/roi'
+      fullPath: '/roi'
+      preLoaderRoute: typeof RoiRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/catalogo': {
@@ -138,7 +133,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CatalogoRoute: CatalogoRoute,
-  CompararRoute: CompararRoute,
+  RoiRoute: RoiRoute,
   ProductHandleRoute: ProductHandleRoute,
   TratamientoSlugRoute: TratamientoSlugRoute,
 }

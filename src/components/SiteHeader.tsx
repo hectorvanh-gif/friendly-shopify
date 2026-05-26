@@ -1,16 +1,14 @@
 import { Link } from "@tanstack/react-router";
 import { useNavigate } from "@tanstack/react-router";
-import { Search, GitCompareArrows, ChevronDown } from "lucide-react";
+import { Search, TrendingUp, ChevronDown } from "lucide-react";
 import { useState } from "react";
 import { CartDrawer } from "./CartDrawer";
 import { TREATMENTS } from "@/lib/treatments";
-import { useCompareStore } from "@/stores/compareStore";
 
 export function SiteHeader() {
   const navigate = useNavigate();
   const [q, setQ] = useState("");
   const [openTreat, setOpenTreat] = useState(false);
-  const compareCount = useCompareStore((s) => s.items.length);
 
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -37,16 +35,11 @@ export function SiteHeader() {
             />
           </form>
           <Link
-            to="/comparar"
-            className="hidden md:inline-flex items-center gap-2 text-xs uppercase tracking-[0.18em] text-muted-foreground hover:text-foreground transition-colors relative"
+            to="/roi"
+            className="hidden md:inline-flex items-center gap-2 text-xs uppercase tracking-[0.18em] text-muted-foreground hover:text-foreground transition-colors"
           >
-            <GitCompareArrows className="w-4 h-4" />
-            <span className="hidden lg:inline">Comparar</span>
-            {compareCount > 0 && (
-              <span className="absolute -top-1.5 -right-2 h-4 min-w-[16px] px-1 rounded-full bg-accent text-accent-foreground text-[9px] flex items-center justify-center font-medium">
-                {compareCount}
-              </span>
-            )}
+            <TrendingUp className="w-4 h-4" />
+            <span className="hidden lg:inline">Calculadora ROI</span>
           </Link>
           <CartDrawer />
         </div>
@@ -84,8 +77,8 @@ export function SiteHeader() {
           <Link to="/catalogo" search={{ sort: "newest" }} className="text-muted-foreground hover:text-foreground transition-colors">
             Catálogo completo
           </Link>
-          <Link to="/comparar" className="text-muted-foreground hover:text-foreground transition-colors">
-            Comparador
+          <Link to="/roi" className="text-muted-foreground hover:text-foreground transition-colors">
+            Calculadora ROI
           </Link>
         </nav>
       </div>
