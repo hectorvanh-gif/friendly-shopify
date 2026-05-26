@@ -1,7 +1,7 @@
 import type { ShopifyProduct } from "@/lib/shopify";
 
 // Cambia este número por el WhatsApp comercial de DermaTek (formato internacional sin +)
-export const QUOTE_WHATSAPP = "5215555555555";
+export const QUOTE_WHATSAPP = "525568552672";
 export const QUOTE_EMAIL = "ventas@dermatek.mx";
 
 export function buildQuoteMessage(products: ShopifyProduct[]): string {
