@@ -34,6 +34,15 @@ export interface ShopifyProduct {
   };
 }
 
+export interface ShopifyCollection {
+  node: {
+    id: string;
+    handle: string;
+    title: string;
+    productsCount?: { count: number } | null;
+  };
+}
+
 export const PRODUCTS_QUERY = `
   query GetProducts($first: Int!, $query: String) {
     products(first: $first, query: $query) {
@@ -57,6 +66,21 @@ export const PRODUCTS_QUERY = `
             }
           }
           options { name values }
+          collections(first: 10) { edges { node { id handle title } } }
+        }
+      }
+    }
+  }
+`;
+
+export const COLLECTIONS_QUERY = `
+  query GetCollections($first: Int!) {
+    collections(first: $first) {
+      edges {
+        node {
+          id
+          handle
+          title
         }
       }
     }
