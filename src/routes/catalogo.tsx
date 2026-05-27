@@ -49,17 +49,28 @@ function CatalogoPage() {
   const all = data ?? [];
 
   const categories = useMemo(() => {
-    const set = new Map<string, number>();
+    // Group by Shopify Collections (handle → { title, count })
+    const map = new Map<string, { title: string; count: number }>();
     for (const p of all) {
-      const t = p.node.productType?.trim();
-      if (t) set.set(t, (set.get(t) ?? 0) + 1);
+      const cols = p.node.collections?.edges ?? [];
+      for (const c of cols) {
+        const cur = map.get(c.node.handle);
+        if (cur) cur.count += 1;
+        else map.set(c.node.handle, { title: c.node.title, count: 1 });
+      }
     }
-    return Array.from(set.entries()).sort((a, b) => b[1] - a[1]);
+    return Array.from(map.entries())
+      .map(([handle, v]) => ({ handle, title: v.title, count: v.count }))
+      .sort((a, b) => b.count - a.count);
   }, [all]);
 
   const filtered = useMemo(() => {
     let list = all;
-    if (cat) list = list.filter((p) => p.node.productType === cat);
+    if (cat) {
+      list = list.filter((p) =>
+        (p.node.collections?.edges ?? []).some((c) => c.node.handle === cat),
+      );
+    }
     if (q) {
       const needle = q.toLowerCase();
       list = list.filter(
@@ -81,7 +92,8 @@ function CatalogoPage() {
   const setCat = (next: string | undefined) =>
     navigate({ search: (prev: CatalogoSearch) => ({ ...prev, cat: next }) });
 
-  const activeFilters = [q && { key: "q", label: `“${q}”` }, cat && { key: "cat", label: cat }].filter(Boolean) as { key: string; label: string }[];
+  const catTitle = cat ? categories.find((c) => c.handle === cat)?.title ?? cat : undefined;
+  const activeFilters = [q && { key: "q", label: `“${q}”` }, cat && { key: "cat", label: catTitle ?? cat }].filter(Boolean) as { key: string; label: string }[];
 
   return (
     <div className="min-h-screen bg-background">
@@ -90,7 +102,7 @@ function CatalogoPage() {
       <div className="max-w-7xl mx-auto px-6 lg:px-12 pt-10 pb-6">
         <p className="text-[10px] uppercase tracking-[0.3em] text-accent mb-3">Catálogo</p>
         <h1 className="font-display text-4xl md:text-5xl tracking-tight">
-          {cat ? cat : "Todos los equipos"}
+          {catTitle ?? "Todos los equipos"}
         </h1>
         <p className="text-sm text-muted-foreground mt-3">
           {isLoading ? "Cargando…" : `${filtered.length} ${filtered.length === 1 ? "equipo" : "equipos"} disponibles`}
@@ -128,13 +140,13 @@ function CatalogoPage() {
                   Todos <span className="text-muted-foreground/60">({all.length})</span>
                 </button>
               </li>
-              {categories.map(([name, count]) => (
-                <li key={name}>
+              {categories.map((c) => (
+                <li key={c.handle}>
                   <button
-                    onClick={() => setCat(name)}
-                    className={`text-left transition-colors hover:text-accent ${cat === name ? "text-foreground font-medium" : "text-muted-foreground"}`}
+                    onClick={() => setCat(c.handle)}
+                    className={`text-left transition-colors hover:text-accent ${cat === c.handle ? "text-foreground font-medium" : "text-muted-foreground"}`}
                   >
-                    {name} <span className="text-muted-foreground/60">({count})</span>
+                    {c.title} <span className="text-muted-foreground/60">({c.count})</span>
                   </button>
                 </li>
               ))}
@@ -186,13 +198,13 @@ function CatalogoPage() {
               >
                 Todos
               </button>
-              {categories.map(([name]) => (
+              {categories.map((c) => (
                 <button
-                  key={name}
-                  onClick={() => setCat(name)}
-                  className={`px-4 py-2 text-xs uppercase tracking-[0.15em] border whitespace-nowrap ${cat === name ? "border-accent text-foreground" : "border-border text-muted-foreground"}`}
+                  key={c.handle}
+                  onClick={() => setCat(c.handle)}
+                  className={`px-4 py-2 text-xs uppercase tracking-[0.15em] border whitespace-nowrap ${cat === c.handle ? "border-accent text-foreground" : "border-border text-muted-foreground"}`}
                 >
-                  {name}
+                  {c.title}
                 </button>
               ))}
             </div>
