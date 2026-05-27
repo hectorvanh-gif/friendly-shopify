@@ -31,6 +31,9 @@ export interface ShopifyProduct {
       }>;
     };
     options: Array<{ name: string; values: string[] }>;
+    collections?: {
+      edges: Array<{ node: { id: string; handle: string; title: string } }>;
+    };
   };
 }
 
