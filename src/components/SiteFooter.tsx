@@ -32,7 +32,7 @@ export function SiteFooter() {
       <div className="border-t border-primary-foreground/10">
         <div className="max-w-7xl mx-auto px-6 lg:px-12 py-6 flex flex-col md:flex-row justify-between items-center gap-3 text-xs text-primary-foreground/40">
           <span>© {new Date().getFullYear()} DermaTek. Todos los derechos reservados.</span>
-          <span className="uppercase tracking-[0.2em]">Tecnología médico-estética</span>
+          <span className="uppercase tracking-[0.2em]">Aparatología estética profesional</span>
         </div>
       </div>
     </footer>
