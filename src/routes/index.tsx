@@ -96,12 +96,12 @@ function Index() {
             </Link>
             <QuoteButton variant="outline" size="lg" label="Solicitar cotización" />
           </div>
-          <div className="absolute bottom-10 left-1/2 -translate-x-1/2 text-center">
-            <p className="font-display text-4xl text-accent">{products.length || "40+"}</p>
-            <p className="text-xs uppercase tracking-[0.2em] text-white/50 mt-1">
-              Equipos disponibles
-            </p>
-          </div>
+        </div>
+        <div className="absolute bottom-8 right-8 z-10 text-right hidden md:block">
+          <p className="font-display text-4xl text-accent leading-none">{products.length || "40+"}</p>
+          <p className="text-[10px] uppercase tracking-[0.25em] text-white/60 mt-2">
+            Equipos disponibles
+          </p>
         </div>
       </section>
 
