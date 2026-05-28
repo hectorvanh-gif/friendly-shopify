@@ -85,7 +85,7 @@ function Index() {
             Encuentra el equipo ideal para tu clínica según el resultado clínico que quieres ofrecer.
             Compara hasta 3 equipos y cotiza por WhatsApp.
           </p>
-          <div className="flex flex-wrap gap-3 justify-center">
+          <div className="flex flex-wrap gap-4 justify-center">
             <Link
               to="/catalogo"
               search={{ sort: "newest" }}
@@ -96,7 +96,7 @@ function Index() {
             </Link>
             <QuoteButton variant="outline" size="lg" label="Solicitar cotización" />
           </div>
-          <div className="absolute bottom-8 text-center">
+          <div className="absolute bottom-10 left-1/2 -translate-x-1/2 text-center">
             <p className="font-display text-4xl text-accent">{products.length || "40+"}</p>
             <p className="text-xs uppercase tracking-[0.2em] text-white/50 mt-1">
               Equipos disponibles
