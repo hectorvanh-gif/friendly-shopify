@@ -52,60 +52,55 @@ function Index() {
       <SiteHeader />
 
       {/* Hero */}
-      <section className="relative overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12 pt-16 lg:pt-24 pb-20 lg:pb-32 grid lg:grid-cols-12 gap-12 items-center">
-          <div className="lg:col-span-6 space-y-8">
-            <div className="inline-flex items-center gap-2.5">
-              <span className="h-px w-8 bg-accent" />
-              <Sparkles className="w-4 h-4 text-accent" />
-              <span className="text-[11px] uppercase tracking-[0.3em] text-accent font-semibold">
-                DermaTek México
-              </span>
-            </div>
-            <h1 className="font-display text-5xl md:text-6xl lg:text-7xl leading-[1.02] tracking-tight">
-              Tienda{" "}
-              <span className="italic text-accent">especializada</span>{" "}
-              en aparatología estética profesional
-            </h1>
-            <p className="font-display text-xl md:text-2xl text-foreground/80 leading-snug max-w-lg">
-              Elige por <span className="italic">tratamiento</span>, no por marca.
-            </p>
-            <p className="text-base text-muted-foreground max-w-md leading-relaxed">
-              Encuentra el equipo ideal para tu clínica según el resultado clínico que quieres ofrecer.
-              Compara hasta 3 equipos y cotiza por WhatsApp.
-            </p>
-            <div className="flex flex-wrap gap-3">
-              <Link
-                to="/catalogo"
-                search={{ sort: "newest" }}
-                className="inline-flex items-center gap-3 h-12 px-7 bg-primary text-primary-foreground hover:bg-primary/90 transition-colors text-xs uppercase tracking-[0.25em] font-medium"
-              >
-                Ver catálogo
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-              <QuoteButton variant="outline" size="lg" label="Solicitar cotización" />
-            </div>
+      <section className="relative h-screen overflow-hidden">
+        <video
+          src={heroVideo.url}
+          poster={heroImage}
+          autoPlay
+          loop
+          muted
+          playsInline
+          aria-label="Equipos de aparatología estética DermaTek"
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-black/55" />
+        <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-6">
+          <div className="inline-flex items-center gap-2.5 mb-8">
+            <span className="h-px w-8 bg-accent" />
+            <Sparkles className="w-4 h-4 text-accent" />
+            <span className="text-[11px] uppercase tracking-[0.3em] text-accent font-semibold">
+              DermaTek México
+            </span>
+            <span className="h-px w-8 bg-accent" />
           </div>
-          <div className="lg:col-span-6 relative">
-            <div className="relative aspect-[4/5] overflow-hidden">
-              <video
-                src={heroVideo.url}
-                poster={heroImage}
-                autoPlay
-                loop
-                muted
-                playsInline
-                aria-label="Equipos de aparatología estética DermaTek"
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 via-transparent to-transparent" />
-            </div>
-            <div className="absolute -bottom-6 -left-6 bg-background border border-border p-5 max-w-[200px] hidden lg:block">
-              <p className="font-display text-4xl text-accent">{products.length || "40+"}</p>
-              <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground mt-1">
-                Equipos disponibles
-              </p>
-            </div>
+          <h1 className="font-display text-5xl md:text-6xl lg:text-7xl leading-[1.02] tracking-tight text-white mb-6 max-w-4xl">
+            Tienda{" "}
+            <span className="italic text-accent">especializada</span>{" "}
+            en aparatología estética profesional
+          </h1>
+          <p className="font-display text-xl md:text-2xl text-white/80 leading-snug mb-4">
+            Elige por <span className="italic">tratamiento</span>, no por marca.
+          </p>
+          <p className="text-base text-white/60 max-w-md leading-relaxed mb-10">
+            Encuentra el equipo ideal para tu clínica según el resultado clínico que quieres ofrecer.
+            Compara hasta 3 equipos y cotiza por WhatsApp.
+          </p>
+          <div className="flex flex-wrap gap-3 justify-center">
+            <Link
+              to="/catalogo"
+              search={{ sort: "newest" }}
+              className="inline-flex items-center gap-3 h-12 px-7 bg-primary text-primary-foreground hover:bg-primary/90 transition-colors text-xs uppercase tracking-[0.25em] font-medium"
+            >
+              Ver catálogo
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+            <QuoteButton variant="outline" size="lg" label="Solicitar cotización" />
+          </div>
+          <div className="absolute bottom-8 text-center">
+            <p className="font-display text-4xl text-accent">{products.length || "40+"}</p>
+            <p className="text-xs uppercase tracking-[0.2em] text-white/50 mt-1">
+              Equipos disponibles
+            </p>
           </div>
         </div>
       </section>
