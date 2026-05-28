@@ -22,6 +22,7 @@ interface CartStore {
   isLoading: boolean;
   isSyncing: boolean;
   addItem: (item: Omit<CartItem, "lineId">) => Promise<void>;
+  prepareCheckout: () => Promise<string | null>;
   updateQuantity: (variantId: string, quantity: number) => Promise<void>;
   removeItem: (variantId: string) => Promise<void>;
   clearCart: () => void;
@@ -97,6 +98,28 @@ async function createShopifyCart(item: CartItem) {
   const lineId = cart.lines.edges[0]?.node?.id;
   if (!lineId) return null;
   return { cartId: cart.id, checkoutUrl: formatCheckoutUrl(cart.checkoutUrl), lineId };
+}
+
+async function createShopifyCartFromItems(items: CartItem[]) {
+  const data = await storefrontApiRequest(CART_CREATE_MUTATION, {
+    input: {
+      lines: items.map((item) => ({ quantity: item.quantity, merchandiseId: item.variantId })),
+    },
+  });
+  if (!data) return null;
+  const errs = data?.data?.cartCreate?.userErrors || [];
+  if (errs.length) {
+    console.error("Cart checkout create failed:", errs);
+    return null;
+  }
+  const cart = data?.data?.cartCreate?.cart;
+  if (!cart?.checkoutUrl) return null;
+  const lines = cart.lines.edges as Array<{ node: { id: string; merchandise: { id: string } } }>;
+  return {
+    cartId: cart.id,
+    checkoutUrl: formatCheckoutUrl(cart.checkoutUrl),
+    lineIds: new Map(lines.map((line) => [line.node.merchandise.id, line.node.id])),
+  };
 }
 
 async function addLineToShopifyCart(cartId: string, item: CartItem) {
@@ -182,6 +205,27 @@ export const useCartStore = create<CartStore>()(
               set({ items: [...cur, { ...item, lineId: result.lineId ?? null }] });
             } else if (result.cartNotFound) clearCart();
           }
+        } finally {
+          set({ isLoading: false });
+        }
+      },
+
+      prepareCheckout: async () => {
+        const { items } = get();
+        if (!items.length) return null;
+        set({ isLoading: true });
+        try {
+          const result = await createShopifyCartFromItems(items);
+          if (!result) return null;
+          set({
+            cartId: result.cartId,
+            checkoutUrl: result.checkoutUrl,
+            items: items.map((item) => ({
+              ...item,
+              lineId: result.lineIds.get(item.variantId) ?? item.lineId,
+            })),
+          });
+          return result.checkoutUrl;
         } finally {
           set({ isLoading: false });
         }

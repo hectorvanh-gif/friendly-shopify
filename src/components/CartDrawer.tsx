@@ -15,7 +15,7 @@ import { formatPrice } from "@/lib/shopify";
 
 export function CartDrawer() {
   const [open, setOpen] = useState(false);
-  const { items, isLoading, isSyncing, updateQuantity, removeItem, getCheckoutUrl, syncCart } =
+  const { items, isLoading, isSyncing, updateQuantity, removeItem, prepareCheckout, syncCart } =
     useCartStore();
   const totalItems = items.reduce((s, i) => s + i.quantity, 0);
   const totalPrice = items.reduce(
@@ -28,8 +28,8 @@ export function CartDrawer() {
     if (open) syncCart();
   }, [open, syncCart]);
 
-  const handleCheckout = () => {
-    const url = getCheckoutUrl();
+  const handleCheckout = async () => {
+    const url = await prepareCheckout();
     if (url) {
       window.open(url, "_blank");
       setOpen(false);
