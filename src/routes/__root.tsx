@@ -74,7 +74,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "DermaTek — Aparatología Estética Premium" },
-      { name: "description", content: "Equipos profesionales de aparatología estética: láser, HIFU, hidrafacial, EMSzero y más. Tecnología médico-estética de alta gama." },
+      { name: "description", content: "Equipos profesionales de aparatología estética: láser, HIFU, hidrafacial, EMSzero y más. Tecnología de alta gama para clínicas y spas." },
       { name: "author", content: "DermaTek" },
       { property: "og:title", content: "DermaTek — Aparatología Estética Premium" },
       { property: "og:description", content: "Equipos profesionales de aparatología estética: láser, HIFU, hidrafacial, EMSzero y más." },
