@@ -55,10 +55,10 @@ function Index() {
       <section className="relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 lg:px-12 pt-16 lg:pt-24 pb-20 lg:pb-32 grid lg:grid-cols-12 gap-12 items-center">
           <div className="lg:col-span-6 space-y-8">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 border border-accent/30 rounded-full">
-              <Sparkles className="w-3 h-3 text-accent" />
-              <span className="text-[10px] uppercase tracking-[0.25em] text-accent font-medium">
-                Marketplace médico-estético
+            <div className="inline-flex items-center gap-2.5 px-5 py-2.5 border border-accent/40 rounded-full bg-accent/5">
+              <Sparkles className="w-4 h-4 text-accent" />
+              <span className="text-sm uppercase tracking-[0.2em] text-accent font-semibold">
+                Equipos de aparatología estética
               </span>
             </div>
             <h1 className="font-display text-5xl md:text-6xl lg:text-7xl leading-[1.05] tracking-tight">
