@@ -65,14 +65,6 @@ function Index() {
         />
         <div className="absolute inset-0 bg-black/35" />
         <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-6">
-          <div className="inline-flex items-center gap-2.5 mb-8">
-            <span className="h-px w-8 bg-accent" />
-            <Sparkles className="w-4 h-4 text-accent" />
-            <span className="text-[11px] uppercase tracking-[0.3em] text-accent font-semibold">
-              DermaTek México
-            </span>
-            <span className="h-px w-8 bg-accent" />
-          </div>
           <h1 className="font-display text-5xl md:text-6xl lg:text-7xl leading-[1.02] tracking-tight text-white mb-6 max-w-4xl [text-shadow:0_2px_16px_rgba(0,0,0,0.9)]">
             Tienda{" "}
             <span className="italic text-accent">especializada</span>{" "}
