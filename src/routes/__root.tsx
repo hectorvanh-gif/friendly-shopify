@@ -10,6 +10,7 @@ import {
 
 import appCss from "../styles.css?url";
 import { Toaster } from "@/components/ui/sonner";
+import { WhatsAppFloat } from "@/components/WhatsAppFloat";
 
 function NotFoundComponent() {
   return (
@@ -133,6 +134,7 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       <Outlet />
       <Toaster position="top-center" />
+      <WhatsAppFloat />
     </QueryClientProvider>
   );
 }
