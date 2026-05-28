@@ -58,7 +58,7 @@ function Index() {
             <div className="inline-flex items-center gap-2.5 px-5 py-2.5 border border-accent/40 rounded-full bg-accent/5">
               <Sparkles className="w-4 h-4 text-accent" />
               <span className="text-sm uppercase tracking-[0.2em] text-accent font-semibold">
-                Equipos de aparatología estética
+                Equipos de aparatología estética profesional
               </span>
             </div>
             <h1 className="font-display text-5xl md:text-6xl lg:text-7xl leading-[1.05] tracking-tight">
