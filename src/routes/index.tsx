@@ -55,20 +55,23 @@ function Index() {
       <section className="relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 lg:px-12 pt-16 lg:pt-24 pb-20 lg:pb-32 grid lg:grid-cols-12 gap-12 items-center">
           <div className="lg:col-span-6 space-y-8">
-            <div className="inline-flex items-center gap-2.5 px-5 py-2.5 border border-accent/40 rounded-full bg-accent/5">
+            <div className="inline-flex items-center gap-2.5">
+              <span className="h-px w-8 bg-accent" />
               <Sparkles className="w-4 h-4 text-accent" />
-              <span className="text-sm uppercase tracking-[0.2em] text-accent font-semibold">
-                Equipos de aparatología estética profesional
+              <span className="text-[11px] uppercase tracking-[0.3em] text-accent font-semibold">
+                DermaTek México
               </span>
             </div>
-            <h1 className="font-display text-5xl md:text-6xl lg:text-7xl leading-[1.05] tracking-tight">
-              Elige por
-              <br />
-              <span className="italic text-accent">tratamiento,</span>
-              <br />
-              no por marca.
+            <h1 className="font-display text-5xl md:text-6xl lg:text-7xl leading-[1.02] tracking-tight">
+              Equipos de{" "}
+              <span className="italic text-accent">aparatología</span>{" "}
+              <span className="italic text-accent">estética</span>{" "}
+              profesional
             </h1>
-            <p className="text-lg text-muted-foreground max-w-md leading-relaxed">
+            <p className="font-display text-xl md:text-2xl text-foreground/80 leading-snug max-w-lg">
+              Elige por <span className="italic">tratamiento</span>, no por marca.
+            </p>
+            <p className="text-base text-muted-foreground max-w-md leading-relaxed">
               Encuentra el equipo ideal para tu clínica según el resultado clínico que quieres ofrecer.
               Compara hasta 3 equipos y cotiza por WhatsApp.
             </p>
