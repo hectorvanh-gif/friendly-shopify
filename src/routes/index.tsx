@@ -63,7 +63,7 @@ function Index() {
           aria-label="Equipos de aparatología estética DermaTek"
           className="absolute inset-0 w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-black/55" />
+        <div className="absolute inset-0 bg-black/35" />
         <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-6">
           <div className="inline-flex items-center gap-2.5 mb-8">
             <span className="h-px w-8 bg-accent" />
@@ -73,12 +73,12 @@ function Index() {
             </span>
             <span className="h-px w-8 bg-accent" />
           </div>
-          <h1 className="font-display text-5xl md:text-6xl lg:text-7xl leading-[1.02] tracking-tight text-white mb-6 max-w-4xl">
+          <h1 className="font-display text-5xl md:text-6xl lg:text-7xl leading-[1.02] tracking-tight text-white mb-6 max-w-4xl [text-shadow:0_2px_16px_rgba(0,0,0,0.9)]">
             Tienda{" "}
             <span className="italic text-accent">especializada</span>{" "}
             en aparatología estética profesional
           </h1>
-          <p className="font-display text-xl md:text-2xl text-white/80 leading-snug mb-4">
+          <p className="font-display text-xl md:text-2xl text-white/90 leading-snug mb-4 [text-shadow:0_1px_8px_rgba(0,0,0,0.8)]">
             Elige por <span className="italic">tratamiento</span>, no por marca.
           </p>
           <p className="text-base text-white/60 max-w-md leading-relaxed mb-10">
