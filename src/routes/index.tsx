@@ -73,8 +73,7 @@ function Index() {
           <p className="font-display text-xl md:text-2xl text-white/90 leading-snug mb-4 [text-shadow:0_1px_8px_rgba(0,0,0,0.8)]">
             Elige por <span className="italic">tratamiento</span>, no por marca.
           </p>
-          <div className="mb-10" />
-          <div className="flex flex-wrap gap-4 justify-center">
+          <div className="flex flex-wrap gap-4 justify-center mt-10">
             <Link
               to="/catalogo"
               search={{ sort: "newest" }}
