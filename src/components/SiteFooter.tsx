@@ -24,7 +24,7 @@ export function SiteFooter() {
           <h4 className="text-xs uppercase tracking-[0.25em] text-accent mb-5">Contacto</h4>
           <ul className="space-y-3 text-sm text-primary-foreground/70">
             <li>ventas@dermatek.mx</li>
-            <li>+52 (55) 0000 0000</li>
+            <li>+52 1 55 6855 2672</li>
             <li>Lun–Vie · 9:00–18:00</li>
           </ul>
         </div>
