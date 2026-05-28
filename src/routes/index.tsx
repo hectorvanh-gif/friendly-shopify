@@ -73,10 +73,7 @@ function Index() {
           <p className="font-display text-xl md:text-2xl text-white/90 leading-snug mb-4 [text-shadow:0_1px_8px_rgba(0,0,0,0.8)]">
             Elige por <span className="italic">tratamiento</span>, no por marca.
           </p>
-          <p className="text-base text-white/60 max-w-md leading-relaxed mb-10">
-            Encuentra el equipo ideal para tu clínica según el resultado clínico que quieres ofrecer.
-            Compara hasta 3 equipos y cotiza por WhatsApp.
-          </p>
+          <div className="mb-10" />
           <div className="flex flex-wrap gap-4 justify-center">
             <Link
               to="/catalogo"
