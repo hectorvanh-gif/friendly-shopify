@@ -63,10 +63,9 @@ function Index() {
               </span>
             </div>
             <h1 className="font-display text-5xl md:text-6xl lg:text-7xl leading-[1.02] tracking-tight">
-              Equipos de{" "}
-              <span className="italic text-accent">aparatología</span>{" "}
-              <span className="italic text-accent">estética</span>{" "}
-              profesional
+              Tienda{" "}
+              <span className="italic text-accent">especializada</span>{" "}
+              en aparatología estética profesional
             </h1>
             <p className="font-display text-xl md:text-2xl text-foreground/80 leading-snug max-w-lg">
               Elige por <span className="italic">tratamiento</span>, no por marca.
