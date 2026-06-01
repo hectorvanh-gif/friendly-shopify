@@ -2,6 +2,20 @@
 @source "../src";
 @import "tw-animate-css";
 
+/* Hide Google Translate banner & tooltips, prevent body offset */
+.goog-te-banner-frame.skiptranslate,
+.goog-te-gadget,
+.goog-tooltip,
+.goog-tooltip:hover,
+.goog-text-highlight {
+  display: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+body {
+  top: 0 !important;
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
