@@ -52,18 +52,8 @@ function setLang(lang: "es" | "en") {
   if (lang === "en") {
     setGoogtransCookies("/es/en");
   }
-  // Try without reload first
-  if (triggerTranslate(lang)) {
-    // Give the widget a moment, then if nothing changed reload as fallback
-    setTimeout(() => {
-      const html = document.documentElement;
-      const translated = html.classList.contains("translated-ltr") || html.classList.contains("translated-rtl");
-      if ((lang === "en" && !translated) || (lang === "es" && translated)) {
-        window.location.reload();
-      }
-    }, 400);
-    return;
-  }
+  // Always reload — Google Translate reads the cookie on load and
+  // applies (or removes) the translation reliably.
   window.location.reload();
 }
 
