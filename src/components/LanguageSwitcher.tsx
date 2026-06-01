@@ -15,15 +15,55 @@ function getCurrentLang(): "es" | "en" {
   return match && match[1] === "en" ? "en" : "es";
 }
 
-function setLang(lang: "es" | "en") {
+function clearGoogtransCookies() {
   const domain = window.location.hostname;
   const parts = domain.split(".");
   const root = parts.length > 1 ? "." + parts.slice(-2).join(".") : domain;
-  const value = lang === "es" ? "/es/es" : "/es/en";
-  // Set on multiple scopes so Google Translate picks it up
+  const expire = "expires=Thu, 01 Jan 1970 00:00:00 GMT";
+  document.cookie = `googtrans=;path=/;${expire}`;
+  document.cookie = `googtrans=;path=/;domain=${domain};${expire}`;
+  document.cookie = `googtrans=;path=/;domain=${root};${expire}`;
+}
+
+function setGoogtransCookies(value: string) {
+  const domain = window.location.hostname;
+  const parts = domain.split(".");
+  const root = parts.length > 1 ? "." + parts.slice(-2).join(".") : domain;
   document.cookie = `googtrans=${value};path=/`;
   document.cookie = `googtrans=${value};path=/;domain=${domain}`;
   document.cookie = `googtrans=${value};path=/;domain=${root}`;
+}
+
+function triggerTranslate(lang: "es" | "en") {
+  // Try to drive the hidden Google Translate <select> directly — most reliable
+  const select = document.querySelector<HTMLSelectElement>(
+    "select.goog-te-combo"
+  );
+  if (select) {
+    select.value = lang;
+    select.dispatchEvent(new Event("change"));
+    return true;
+  }
+  return false;
+}
+
+function setLang(lang: "es" | "en") {
+  clearGoogtransCookies();
+  if (lang === "en") {
+    setGoogtransCookies("/es/en");
+  }
+  // Try without reload first
+  if (triggerTranslate(lang)) {
+    // Give the widget a moment, then if nothing changed reload as fallback
+    setTimeout(() => {
+      const html = document.documentElement;
+      const translated = html.classList.contains("translated-ltr") || html.classList.contains("translated-rtl");
+      if ((lang === "en" && !translated) || (lang === "es" && translated)) {
+        window.location.reload();
+      }
+    }, 400);
+    return;
+  }
   window.location.reload();
 }
 
@@ -64,7 +104,18 @@ export function LanguageSwitcher() {
   return (
     <>
       {/* Hidden mount point required by the Google Translate widget */}
-      <div id="google_translate_element" style={{ display: "none" }} />
+      <div
+        id="google_translate_element"
+        style={{
+          position: "absolute",
+          width: 1,
+          height: 1,
+          overflow: "hidden",
+          opacity: 0,
+          pointerEvents: "none",
+          left: -9999,
+        }}
+      />
       <button
         type="button"
         onClick={() => setLang(next)}
